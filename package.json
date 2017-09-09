@@ -1,0 +1,30 @@
+{
+  "name": "sw-test-utils",
+  "description": "Utilities for testing ServiceWorker",
+  "version": "1.0.0",
+  "author": "Alexander Pope <alex@pope-industries.com>",
+  "keywords": [
+    "service worker",
+    "ServiceWorker",
+    "test",
+    "testing"
+  ],
+  "dependencies": {
+    "chai": "^4.1.2",
+    "koa": "^2.3.0",
+    "mocha": "^3.5.0",
+    "sw-test-env": "^1.1.2"
+  },
+  "devDependencies": {
+    "node-fetch": "^1.7.3"
+  },
+  "engines": {
+    "node": ">=8"
+  },
+  "main": "index.js",
+  "repository": "https://github.com/popeindustries/sw-test-utils.git",
+  "license": "MIT",
+  "scripts": {
+    "test": "NODE_ENV=test mocha test/test.js --reporter spec --bail"
+  }
+}
