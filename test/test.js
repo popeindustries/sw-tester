@@ -93,5 +93,10 @@ describe('sw-test-utils', () => {
       expect(response).to.exist;
       expect(response.headers.get('Cache-Control')).to.contain('max-age=10');
     });
+    it.only('should render test page', async () => {
+      server = await testServer.create();
+      const response = await fetch('http://localhost:3333/test?files=test/test-browser.js');
+
+    });
   });
 });

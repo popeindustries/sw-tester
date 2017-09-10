@@ -11,6 +11,7 @@
   ],
   "dependencies": {
     "chai": "^4.1.2",
+    "glob": "^7.1.2",
     "koa": "^2.3.0",
     "mocha": "^3.5.0",
     "sw-test-env": "^1.1.2"
