@@ -1,7 +1,7 @@
 {
-  "name": "sw-test-utils",
-  "description": "Utilities for testing ServiceWorker",
-  "version": "1.0.0",
+  "name": "sw-tester",
+  "description": "ServiceWorker testing made easy",
+  "version": "0.0.1",
   "author": "Alexander Pope <alex@pope-industries.com>",
   "keywords": [
     "service worker",
@@ -27,7 +27,7 @@
     "node": ">=8"
   },
   "main": "index.js",
-  "repository": "https://github.com/popeindustries/sw-test-utils.git",
+  "repository": "https://github.com/popeindustries/sw-tester.git",
   "license": "MIT",
   "scripts": {
     "test": "NODE_ENV=test mocha test/test.js --reporter spec --bail",
