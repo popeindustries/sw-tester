@@ -8,7 +8,7 @@ describe('ServiceWorker testing', () => {
     server = await testServer.create({ port: 3333, latency: 20, webroot: 'test/fixtures' });
   });
   beforeEach(() => {
-    swClient = connect('http://localhost:3333/', 'src');
+    swClient = connect('http://localhost:3333/', 'test/fixtures');
   });
   afterEach(() => {
     destroy();
@@ -21,7 +21,7 @@ describe('ServiceWorker testing', () => {
 
   describe('installation', () => {
     it('should pre-cache assets', async () => {
-      await swClient.register('/sw.js');
+      await swClient.register('./fixtures/sw.js');
       await swClient.trigger('install');
       const cache = await swClient.scope.caches.open('test');
 
