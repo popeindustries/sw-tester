@@ -1,5 +1,5 @@
 [![NPM Version](https://img.shields.io/npm/v/sw-tester.svg?style=flat)](https://npmjs.org/package/sw-tester)
-[![Build Status](https://img.shields.io/travis/YR/sw-tester.svg?style=flat)](https://travis-ci.org/YR/sw-tester)
+[![Build Status](https://img.shields.io/travis/popeindustries/sw-tester.svg?style=flat)](https://travis-ci.org/popeindustries/sw-tester)
 
 # `ServiceWorker` Testing made easy
 
