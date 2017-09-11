@@ -8,7 +8,6 @@ describe('sw-test-utils', () => {
   let server;
 
   describe('testServer', () => {
-    beforeEach(async () => {});
     afterEach(async () => {
       if (server) {
         server.destroy();
