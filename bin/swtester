@@ -5,7 +5,7 @@ const { testServer } = require('../index');
 main();
 
 async function main() {
-  const filePattern = process.argv[2];
+  const filePattern = process.argv[2] == '--' ? process.argv[3] : process.argv[2];
   const server = await testServer.create();
 
   if (!filePattern) {
