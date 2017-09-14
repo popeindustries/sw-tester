@@ -1464,9 +1464,9 @@ supports-color@3.1.2:
   dependencies:
     has-flag "^1.0.0"
 
-sw-test-env@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/sw-test-env/-/sw-test-env-1.2.0.tgz#dc9cd5eaacb441ff8f1f3b02ff99b17f4d0d704f"
+sw-test-env@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/sw-test-env/-/sw-test-env-1.2.1.tgz#0299a38193d377a4c2cf6fea2b19dba648a16d8b"
   dependencies:
     fake-indexeddb "^2.0.3"
     mime-types "^2.1.17"
