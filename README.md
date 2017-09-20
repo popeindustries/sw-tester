@@ -20,8 +20,8 @@ let swClient;
 
 describe('installation', () => {
   before(async () => {
-    swClient = mockServiceWorker.connect('http://localhost:3333/', '/src');
-    await swClient.register('/src/sw.js');
+    swClient = mockServiceWorker.connect('http://localhost:3333/', 'src');
+    await swClient.register('sw.js');
   });
   it('should pre-cache assets', async () => {
     await swClient.trigger('install');
@@ -43,7 +43,7 @@ Create a [koa](http://koajs.com/) test server for handling network requests from
 
 - **`port: Number`** the port number to expose on `localhost`. Will use `process.env.PORT` if not specified here (defaults to `3333`)
 - **`latency: Number`** the minimum amount of random artificial latency to introduce (in `ms`) for responses (defaults to `50`)
-- **`webroot: String`** the subpath from `process.cwd()` to preppend to relative paths (defaults to '')
+- **`webroot: String`** the subpath from `process.cwd()` to preppend to relative paths (default none)
 - **`routes: (app: Application) => void`** register server middleware/routes with passed `app` instance
 
 ```js
@@ -63,7 +63,7 @@ The object returned from `create()` contains the following properties:
 - **`app: Application`** the *koa* application instance
 - **`port: Number`** the assigned port number
 - **`server: HTTPServer`** the underlying `HTTPServer` instance
-- **`destroy()`** close server and all outstanding connections
+- **`destroy(): Promise`** close server and all outstanding connections
 
 ## Browser testing
 
