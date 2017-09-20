@@ -5,12 +5,18 @@ const { testServer } = require('../index');
 main();
 
 async function main() {
-  const filePattern = process.argv[2] == '--' ? process.argv[3] : process.argv[2];
+  const idx = process.argv[2] == '--' ? 3 : 2;
+  const n = process.argv.length;
   const server = await testServer.create();
+  let files = '';
 
-  if (!filePattern) {
+  for (let i = idx; i < n; i++) {
+    files += `${process.argv[i]}${i < n - 1 ? ',' : ''}`;
+  }
+
+  if (!files) {
     throw Error('missing file glob pattern argument: swtestutils test/*-test.js');
   }
 
-  console.log(`\nTest server started.\n\nPoint your browser at http://localhost:${server.port}/test?files=${filePattern}`);
+  console.log(`\nTest server started.\n\nPoint your browser at http://localhost:${server.port}/test?files=${files}`);
 }
