@@ -15,7 +15,7 @@ Tests are written in [mocha](https://mochajs.org) with [chai](http://chaijs.com)
 $ npm install --save-dev sw-tester
 ```
 
-2. Write mocha/chai test file using [`mochServiceWorker`](https://github.com/popeindustries/sw-test-env#api) and [`testServer`](#testserver):
+2. Write tests with Mocha, Chai, [`mochServiceWorker`](https://github.com/popeindustries/sw-test-env#api), and [`testServer`](#testserver):
 
 ```js
 const { expect } = require('chai');
