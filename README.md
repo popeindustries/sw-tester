@@ -7,22 +7,27 @@
 
 Tests are written in [mocha](https://mochajs.org) with [chai](http://chaijs.com), and in addition to the functionality provided by `sw-test-env`, `sw-tester` includes a `testServer` that simplifies working with network requests triggered during `ServiceWorker` testing.
 
-## API
+## Usage
 
-### `mockServiceWorker`
-
-Alias for [`sw-test-env` API](https://github.com/popeindustries/sw-test-env#api):
+1. Write mocha/chai test file using [`mochServiceWorker`](https://github.com/popeindustries/sw-test-env#api) and [`testServer`](#testserver):
 
 ```js
 const { expect } = require('chai');
-const { mockServiceWorker } = require('sw-tester');
-let swClient;
+const { mockServiceWorker, testServer } = require('sw-tester');
 
-describe('installation', () => {
+let server, swClient;
+
+describe('Installation', () => {
   before(async () => {
-    swClient = mockServiceWorker.connect('http://localhost:3333/', 'src');
+    server = await testServer.create({ port: 3333, latency: 20 });
+    swClient = await mockServiceWorker.connect('http://localhost:3333/', 'src');
     await swClient.register('sw.js');
   });
+  after(async () => {
+    await mockServiceWorker.destroy();
+    await server.destroy();
+  });
+
   it('should pre-cache assets', async () => {
     await swClient.trigger('install');
     const cache = await swClient.scope.caches.open('test');
@@ -32,6 +37,30 @@ describe('installation', () => {
 });
 
 ```
+
+2. Run test file on the command line:
+
+```bash
+$ swtester node test/*-test.js
+```
+
+3. Run test file in the browser:
+
+```bash
+$ swtester browser test/*-test.js
+```
+
+## How does it work?
+
+When running `$ swtester node <files>`, tests are run with Mocha on the command line using the `ServiceWorker` sandbox created via `mockServiceWorker`, and any network requests triggered by a `ServiceWorker` (or triggered by a test) are handled by the testing server created via `testServer`.
+
+When running `$ swtester browser <files>`, a `testServer` is started in order to generate an html page that will run tests with Mocha in the browser. Individual test files are run sequentially in unique iframes in order to isolate installed `ServiceWorkers` from each other, the `mockServiceWorker` API is proxied to the browser's `ServiceWorker` API, and any network requests triggered by a `ServiceWorker` (or triggered by a test) are handled by the same testing server.
+
+## API
+
+### `mockServiceWorker`
+
+Alias for [`sw-test-env` API](https://github.com/popeindustries/sw-test-env#api)
 
 ### `testServer`
 
@@ -64,20 +93,3 @@ The object returned from `create()` contains the following properties:
 - **`port: Number`** the assigned port number
 - **`server: HTTPServer`** the underlying `HTTPServer` instance
 - **`destroy(): Promise`** close server and all outstanding connections
-
-## Browser testing
-
-To run one or more test files in a browser context, execute the `swtester` command (via *package.json* `scripts`), passing a filepath glob pattern:
-
-```json
-{
-  "scripts": {
-    "test:browser": "swtester test/*-test.js"
-  }
-}
-```
-```bash
-$ npm run test:browser
-```
-
-The command will start a server, printing out the url to a test page that will run each test file in an embedded `<iframe>`. In this way, each `ServiceWorker` install will be isolated from every other (though this generally requires that you test only one `ServiceWorker` context per file).

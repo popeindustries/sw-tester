@@ -11,6 +11,7 @@
   ],
   "dependencies": {
     "chai": "^4.1.2",
+    "commander": "^2.11.0",
     "debug": "^3.0.1",
     "glob": "^7.1.2",
     "koa": "^2.3.0",
@@ -34,9 +35,10 @@
   "repository": "https://github.com/popeindustries/sw-tester.git",
   "license": "MIT",
   "scripts": {
-    "test": "NODE_ENV=test mocha test/test.js --reporter spec --bail",
-    "test:node": "NODE_ENV=test mocha test/fixtures/*-test.js --reporter spec",
-    "test:browser": "./bin/swtester test/fixtures/*-test.js",
+    "test": "yarn run test:server && yarn run test:node",
+    "test:server": "NODE_ENV=test mocha test/test.js --reporter spec --bail",
+    "test:node": "./bin/swtester node test/fixtures/*-test.js",
+    "test:browser": "./bin/swtester browser test/fixtures/*-test.js",
     "watch": "node dev.js"
   }
 }

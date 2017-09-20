@@ -1,22 +1,32 @@
 #!/usr/bin/env node
 
 const { testServer } = require('../index');
+const Mocha = require('mocha');
+const path = require('path');
+const program = require('commander');
 
-main();
+const mocha = new Mocha();
 
-async function main() {
-  const idx = process.argv[2] == '--' ? 3 : 2;
-  const n = process.argv.length;
-  const server = await testServer.create();
-  let files = '';
+mocha.reporter('spec');
+mocha.bail(true);
 
-  for (let i = idx; i < n; i++) {
-    files += `${process.argv[i]}${i < n - 1 ? ',' : ''}`;
-  }
+program.version(require(path.resolve(__dirname, '../package.json')).version).usage('<command> <files...>');
 
-  if (!files) {
-    throw Error('missing file glob pattern argument: swtestutils test/*-test.js');
-  }
+program
+  .command('node <files...>')
+  .description('run test files with mocha on the command line')
+  .action((files) => {
+    mocha.files = files.map((file) => path.resolve(file));
+    mocha.run();
+  });
 
-  console.log(`\nTest server started.\n\nPoint your browser at http://localhost:${server.port}/test?files=${files}`);
-}
+program
+  .command('browser <files...>')
+  .description('run test files with mocha in the browser')
+  .action(async (files) => {
+    const server = await testServer.create();
+
+    console.log(`\nTest server started.\n\nPoint your browser at http://localhost:${server.port}/test?files=${files.join(',')}`);
+  });
+
+program.parse(process.argv);
