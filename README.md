@@ -3,7 +3,7 @@
 
 # `ServiceWorker` Testing made easy
 
-`sw-tester` extends the utility of [`sw-test-env`](https://github.com/popeindustries/sw-test-env) by enabling you to write one set of tests for the command line *and* the browser. Write tests against the mock `ServiceWorker` API provided by [`sw-test-env`](https://github.com/popeindustries/sw-test-env#api), then run those same tests seamlessly in the browser!
+`sw-tester` extends the utility of [`sw-test-env`](https://github.com/popeindustries/sw-test-env) by enabling you to write *one* set of tests for both the command line *and* the browser. Write tests against the mock `ServiceWorker` API provided by [`sw-test-env`](https://github.com/popeindustries/sw-test-env#api), then run those same tests seamlessly in the browser!
 
 Tests are written in [mocha](https://mochajs.org) with [chai](http://chaijs.com), and in addition to the functionality provided by `sw-test-env`, `sw-tester` includes a `testServer` that simplifies working with network requests triggered during `ServiceWorker` testing.
 
@@ -20,8 +20,8 @@ let swClient;
 
 describe('installation', () => {
   before(async () => {
-    swClient = mockServiceWorker.connect('http://localhost:3333/', 'src');
-    await swClient.register('../src/sw.js');
+    swClient = mockServiceWorker.connect('http://localhost:3333/', '/src');
+    await swClient.register('/src/sw.js');
   });
   it('should pre-cache assets', async () => {
     await swClient.trigger('install');

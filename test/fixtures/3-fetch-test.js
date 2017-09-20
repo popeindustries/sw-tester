@@ -1,5 +1,5 @@
 const { expect } = require('chai');
-const { mockServiceWorker, testServer } = require('sw-tester');
+const { mockServiceWorker, testServer } = require(typeof window != 'undefined' ? 'sw-tester' : '../../index');
 const { Request, Response } = mockServiceWorker;
 
 let server, swClient;
@@ -7,8 +7,8 @@ let server, swClient;
 describe('Fetching', () => {
   before(async () => {
     server = await testServer.create({ port: 3333, latency: 20 });
-    swClient = await mockServiceWorker.connect('http://localhost:3333/', '/test/fixtures');
-    await swClient.register('/test/fixtures/sw.js');
+    swClient = await mockServiceWorker.connect('http://localhost:3333/', 'test/fixtures/src');
+    await swClient.register('sw.js');
   });
   after(async () => {
     await mockServiceWorker.destroy();

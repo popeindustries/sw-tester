@@ -10,7 +10,6 @@ async function activation(id) {
   return Promise.all(
     keys.map(key => {
       if (key != id) {
-        console.log('delete', key)
         return caches.delete(key);
       }
     })

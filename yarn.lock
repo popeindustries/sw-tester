@@ -1048,8 +1048,8 @@ mkdirp@0.5.1, "mkdirp@>=0.5 0", mkdirp@^0.5.1:
     minimist "0.0.8"
 
 mocha@^3.5.0:
-  version "3.5.2"
-  resolved "https://registry.yarnpkg.com/mocha/-/mocha-3.5.2.tgz#3d5585cc6bd9e43a7c0bd251631abc0fbea0f032"
+  version "3.5.3"
+  resolved "https://registry.yarnpkg.com/mocha/-/mocha-3.5.3.tgz#1e0480fe36d2da5858d1eb6acc38418b26eaa20d"
   dependencies:
     browser-stdout "1.3.0"
     commander "2.9.0"
@@ -1464,9 +1464,9 @@ supports-color@3.1.2:
   dependencies:
     has-flag "^1.0.0"
 
-sw-test-env@^1.2.1:
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/sw-test-env/-/sw-test-env-1.2.1.tgz#0299a38193d377a4c2cf6fea2b19dba648a16d8b"
+sw-test-env@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/sw-test-env/-/sw-test-env-2.0.0.tgz#6a06481ffe9c5d63a1c6d85792678e1c49265d7c"
   dependencies:
     fake-indexeddb "^2.0.3"
     mime-types "^2.1.17"

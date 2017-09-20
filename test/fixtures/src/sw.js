@@ -12,5 +12,7 @@ self.addEventListener('activate', event => {
 });
 
 self.addEventListener('fetch', event => {
-  event.respondWith(respond(ID, event.request));
+  if (shouldHandle(event.request)) {
+    event.respondWith(respond(ID, event.request));
+  }
 });
