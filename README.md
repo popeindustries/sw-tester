@@ -9,7 +9,13 @@ Tests are written in [mocha](https://mochajs.org) with [chai](http://chaijs.com)
 
 ## Usage
 
-1. Write mocha/chai test file using [`mochServiceWorker`](https://github.com/popeindustries/sw-test-env#api) and [`testServer`](#testserver):
+1. Install with npm:
+
+```bash
+$ npm install --save-dev sw-tester
+```
+
+2. Write mocha/chai test file using [`mochServiceWorker`](https://github.com/popeindustries/sw-test-env#api) and [`testServer`](#testserver):
 
 ```js
 const { expect } = require('chai');
@@ -38,16 +44,31 @@ describe('Installation', () => {
 
 ```
 
-2. Run test file on the command line:
+3. Add commands to package.json `scripts`:
 
-```bash
-$ swtester node test/*-test.js
+```json
+{
+  "scripts": {
+    "test:node": "swtester node test/*-test.js",
+    "test:browser": "swtester browser test/*-test.js"
+  }
+}
 ```
 
-3. Run test file in the browser:
+4. Run tests on the command line:
 
 ```bash
-$ swtester browser test/*-test.js
+$ npm run test:node
+```
+
+5. Run tests in the browser:
+
+```bash
+$ npm run test:browser
+
+# Test server started.
+
+# Point your browser at http://localhost:3333/test?files=test/1-install-test.js,test/2-activate-test.js
 ```
 
 ## How does it work?
