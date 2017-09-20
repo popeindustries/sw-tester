@@ -1,4 +1,4 @@
-importScripts('/utils.js');
+importScripts('utils.js');
 
 const ID = 'test';
 const ASSETS = ['/index.css', '/index.js', '/offline.html'];

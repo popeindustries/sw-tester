@@ -1,14 +1,16 @@
-async function installation(id, assets) {
+async function installation(id) {
   const cache = await caches.open(id);
-  return cache.addAll(assets);
+
+  return cache.addAll(ASSETS);
 }
 
 async function activation(id) {
   const keys = await caches.keys();
 
-  await Promise.all(
+  return Promise.all(
     keys.map(key => {
       if (key != id) {
+        console.log('delete', key)
         return caches.delete(key);
       }
     })
@@ -23,15 +25,18 @@ async function respond(id, request) {
 
     try {
       response = await fetch(request);
-      if (request.method == 'GET' && response.ok && shouldCache(request)) {
-        cache.put(request, response.clone());
+      // console.log(response)
+      if (shouldCache(request, response)) {
+        await cache.put(request.clone(), response.clone());
       }
       updateOnlineStatus(true);
     } catch (err) {
-      console.log(err)
-      response = request.mode == 'navigate' || (request.headers.get('accept').includes('text/html'))
-        ? await cache.match('/offline.html')
-        : new Response('', { status: 499, statusText: 'network offline' });
+      const url = new URL(request.url);
+
+      response =
+        request.mode == 'navigate' || request.headers.get('accept').includes('text/html')
+          ? await cache.match(`${url.origin}/offline.html`)
+          : new Response('', { status: 499, statusText: 'network offline' });
       updateOnlineStatus(false);
     }
   }
@@ -39,23 +44,34 @@ async function respond(id, request) {
   return response.clone();
 }
 
-function shouldCache(request) {
+function shouldHandle(request) {
   const url = new URL(request.url);
-  return url.origin == location.origin;
+
+  return request.method == 'GET' && (url.origin == location.origin || /.googleapis.com$/.test(url.hostname));
 }
 
 function hasExpired(response) {
   const cacheControl = response.headers.get('Cache-Control');
+  const date = response.headers.get('Date');
 
-  if (!cacheControl) {
+  if (!cacheControl || !date) {
     return false;
   }
 
-  const date = response.headers.get('Date');
   const maxAge = /max-age=(\d+)$/.exec(cacheControl);
   const expires = +new Date(date) + (maxAge && maxAge[1] ? parseInt(maxAge[1], 10) * 1000 : 0);
 
   return Date.now() > expires;
+}
+
+function shouldCache(request, response) {
+  if (response.ok) {
+    return true;
+  }
+
+  const url = new URL(request.url);
+
+  return response.type == 'opaque' && url.hostname == 'googleapis.com';
 }
 
 async function updateOnlineStatus(online) {
