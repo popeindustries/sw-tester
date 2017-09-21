@@ -104,9 +104,9 @@ const server = await testServer.create({ port: 8080, latency: 20, webroot: 'lib'
 If unable to resolve a request to a local file, `testServer` will respond with a dummy file of the appropriate type. This makes it easy to test pre-caching, for example, without having to correctly resolve paths or create mocks. In addition, `testServer` supports the following special query parameters:
 
 - **`offline`** simulate an offline state by terminating the request (`fetch('http://localhost:3333/foo.js?offline')`)
-- **`error`** return a 500 server error response (fetch('http://localhost:3333/foo.js?error'))
-- **`missing`** return a 404 not found response (fetch('http://localhost:3333/foo.js?missing'))
-- **`maxage=value`** configure `Cache-Control: public, max-age={value}` cache header (fetch('http://localhost:3333/foo.js?maxage=10'))
+- **`error`** return a 500 server error response (`fetch('http://localhost:3333/foo.js?error')`)
+- **`missing`** return a 404 not found response (`fetch('http://localhost:3333/foo.js?missing')`)
+- **`maxage=value`** configure `Cache-Control: public, max-age={value}` cache header (`fetch('http://localhost:3333/foo.js?maxage=10')`)
 
 The object returned from `create()` contains the following properties:
 
