@@ -1,5 +1,7 @@
 const { expect } = require('chai');
-const { mockServiceWorker, testServer } = require(typeof window != 'undefined' ? 'sw-tester' : '../../index');
+const { mockServiceWorker, testServer } = require(typeof window != 'undefined'
+  ? 'sw-tester'
+  : '../../index');
 
 let server, swClient;
 

@@ -1,5 +1,7 @@
 const { expect } = require('chai');
-const { mockServiceWorker, sleep, testServer } = require(typeof window != 'undefined' ? 'sw-tester' : '../../index');
+const { mockServiceWorker, sleep, testServer } = require(typeof window != 'undefined'
+  ? 'sw-tester'
+  : '../../index');
 
 let server, swClient;
 
@@ -19,12 +21,9 @@ describe('Messaging', () => {
 
     let called = false;
 
-    swClient.addEventListener(
-      'message',
-      (cb = event => {
-        called = true;
-      })
-    );
+    swClient.addEventListener('message', (event) => {
+      called = true;
+    });
 
     await await swClient.trigger('fetch', `http://localhost:3333/index.js`);
     await sleep(100);
@@ -36,10 +35,11 @@ describe('Messaging', () => {
 
     const cache = await swClient.scope.caches.open('test');
     let called = false;
+    let cb;
 
     swClient.addEventListener(
       'message',
-      (cb = event => {
+      (cb = (event) => {
         called = true;
         expect(event.data).to.have.property('msg', 'online');
       })
@@ -57,10 +57,11 @@ describe('Messaging', () => {
     await swClient.ready;
 
     let called = false;
+    let cb;
 
     swClient.addEventListener(
       'message',
-      (cb = event => {
+      (cb = (event) => {
         called = true;
         expect(event.data).to.have.property('msg', 'offline');
       })

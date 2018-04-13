@@ -1,8 +1,9 @@
 language: node_js
 node_js:
   - "8"
+  - "9"
 install:
-  - yarn
+  - yarn install --ignore-optional
   - yarn run test
 cache:
   directories:

@@ -1,5 +1,7 @@
 const { expect } = require('chai');
-const { mockServiceWorker, testServer } = require(typeof window != 'undefined' ? 'sw-tester' : '../../index');
+const { mockServiceWorker, testServer } = require(typeof window != 'undefined'
+  ? 'sw-tester'
+  : '../../index');
 const { Request, Response } = mockServiceWorker;
 
 let server, swClient;
@@ -54,7 +56,9 @@ describe('Fetching', () => {
     await swClient.ready;
 
     const cache = await swClient.scope.caches.open('test');
-    await swClient.trigger('fetch', 'https://fonts.googleapis.com/css?family=Roboto', { mode: 'cors' });
+    await swClient.trigger('fetch', 'https://fonts.googleapis.com/css?family=Roboto', {
+      mode: 'cors'
+    });
 
     expect(await cache.keys()).to.have.length(4);
 

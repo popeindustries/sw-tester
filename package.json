@@ -3,12 +3,7 @@
   "description": "ServiceWorker testing made easy",
   "version": "1.0.1",
   "author": "Alexander Pope <alex@pope-industries.com>",
-  "keywords": [
-    "service worker",
-    "ServiceWorker",
-    "test",
-    "testing"
-  ],
+  "keywords": ["service worker", "ServiceWorker", "test", "testing"],
   "dependencies": {
     "chai": "^4.1.2",
     "commander": "^2.11.0",
@@ -17,13 +12,22 @@
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-route": "^3.2.0",
-    "mocha": "^3.5.0",
+    "mocha": "^5.1.0",
     "sw-test-env": "^2.0.0"
   },
   "devDependencies": {
     "buddy-server": "^4.0.0-beta-1",
     "chokidar": "^1.7.0",
-    "node-fetch": "^1.7.3"
+    "node-fetch": "^2.1.2"
+  },
+  "optionalDependencies": {
+    "babel-eslint": "^8.2.2",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-prettier": "^2.6.0",
+    "husky": "^0.14.3",
+    "lint-staged": "^7.0.4",
+    "prettier": "^1.12.0"
   },
   "engines": {
     "node": ">=8"
@@ -35,6 +39,9 @@
   "repository": "https://github.com/popeindustries/sw-tester.git",
   "license": "MIT",
   "scripts": {
+    "format": "prettier --write './{bin,lib,test}/**/*.js'",
+    "lint": "eslint './{bin,lib,test}/**/*.js'",
+    "precommit": "lint-staged && yarn run test",
     "test": "yarn run test:server && yarn run test:node",
     "test:server": "NODE_ENV=test mocha test/test.js --reporter spec --bail",
     "test:node": "./bin/swtester node test/fixtures/*-test.js",

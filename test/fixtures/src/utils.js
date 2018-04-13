@@ -1,3 +1,5 @@
+/* global ASSETS */
+
 async function installation(id) {
   const cache = await caches.open(id);
 
@@ -8,7 +10,7 @@ async function activation(id) {
   const keys = await caches.keys();
 
   return Promise.all(
-    keys.map(key => {
+    keys.map((key) => {
       if (key != id) {
         return caches.delete(key);
       }
@@ -46,7 +48,10 @@ async function respond(id, request) {
 function shouldHandle(request) {
   const url = new URL(request.url);
 
-  return request.method == 'GET' && (url.origin == location.origin || /.googleapis.com$/.test(url.hostname));
+  return (
+    request.method == 'GET' &&
+    (url.origin == location.origin || /.googleapis.com$/.test(url.hostname))
+  );
 }
 
 function hasExpired(response) {
@@ -76,7 +81,7 @@ function shouldCache(request, response) {
 async function updateOnlineStatus(online) {
   const clients = await self.clients.matchAll();
 
-  clients.forEach(client => {
+  clients.forEach((client) => {
     client.postMessage({ msg: online ? 'online' : 'offline' });
   });
 }

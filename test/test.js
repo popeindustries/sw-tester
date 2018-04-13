@@ -94,14 +94,18 @@ describe('sw-test-utils', () => {
     });
     it('should render test page', async () => {
       server = await testServer.create();
-      const response = await fetch('http://localhost:3333/test?files=test/fixtures/1-install-test.js');
+      const response = await fetch(
+        'http://localhost:3333/test?files=test/fixtures/1-install-test.js'
+      );
       const html = await response.text();
 
       expect(html).to.contain('file=test/fixtures/1-install-test.js"></iframe>');
     });
     it('should render test frame page', async () => {
       server = await testServer.create();
-      const response = await fetch('http://localhost:3333/test/frame/1234?file=test/fixtures/1-install-test.js');
+      const response = await fetch(
+        'http://localhost:3333/test/frame/1234?file=test/fixtures/1-install-test.js'
+      );
       const html = await response.text();
 
       expect(html).to.contain('<script src="/test/fixtures/1-install-test.js"></script>');
