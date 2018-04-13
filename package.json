@@ -1,7 +1,7 @@
 {
   "name": "sw-tester",
   "description": "ServiceWorker testing made easy",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Alexander Pope <alex@pope-industries.com>",
   "keywords": ["service worker", "ServiceWorker", "test", "testing"],
   "dependencies": {
